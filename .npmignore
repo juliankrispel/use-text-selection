@@ -1,2 +1,8 @@
 src
 dist/example
+node_modules
+.editorconfig
+.cache
+.parcel-cache
+build-site
+

@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "incremental": true,
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "lib": ["DOM", "ES2015"],
     "outDir": "dist",
@@ -13,6 +12,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "src/example"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
