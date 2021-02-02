@@ -1,4 +1,4 @@
-## 1.1.1
+## 1.1.2
 
 - added textContent
 - reset if common ancestor of range not contained in target ref (optional argument)
