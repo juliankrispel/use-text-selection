@@ -12,6 +12,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "docs"],
+  "include": ["src", "src/example"],
   "exclude": ["node_modules"]
 }
