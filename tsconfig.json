@@ -9,6 +9,7 @@
     "jsx": "react",
     "strict": true,
     "esModuleInterop": true,
+    "declaration": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },

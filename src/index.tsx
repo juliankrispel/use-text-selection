@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 
 type ClientRect = Record<keyof Omit<DOMRect, "toJSON">, number>
 
@@ -32,20 +32,19 @@ function shallowDiff(prev: any, next: any) {
  * @description
  * hook to get information about the current text selection
  * 
- * @returns
- * { rect, isCollapsed }
  */
 export function useTextSelection(target?: HTMLElement) {
-  const [rect, setRect] = useState<ClientRect>()
+  const [clientRect, setRect] = useState<ClientRect>()
   const [isCollapsed, setIsCollapsed] = useState<boolean>()
+  const [textContent, setText] = useState<string>()
 
   const reset = useCallback(() => {
     setRect(undefined)
     setIsCollapsed(undefined)
+    setText(undefined)
   }, [])
 
   const handler = useCallback(() => {
-
     let newRect: ClientRect
     const selection = window.getSelection()
 
@@ -65,6 +64,10 @@ export function useTextSelection(target?: HTMLElement) {
       reset()
       return
     }
+
+    const contents = range.cloneContents()
+
+    if (contents.textContent != null) setText(contents.textContent)
 
     const rects = range.getClientRects()
 
@@ -99,7 +102,8 @@ export function useTextSelection(target?: HTMLElement) {
   }, [])
 
   return {
-    rect,
-    isCollapsed
+    clientRect,
+    isCollapsed,
+    textContent
   }
 }

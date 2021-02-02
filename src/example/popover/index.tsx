@@ -2,22 +2,20 @@ import React, { FunctionComponent, useCallback, useRef, useState } from 'react'
 import { useTextSelection } from '../..'
 import { css } from '@emotion/css'
 import { createPortal } from 'react-dom'
-// @ts-ignore
-// import PopoverReadme from './readme'
 
 const Portal: FunctionComponent = ({ children }) => {
   return createPortal(children, document.body)
 }
 
 export const Popover = ({ target }: { target?: HTMLElement }) => {
-  const { isCollapsed, rect } = useTextSelection(target)
+  const { isCollapsed, clientRect } = useTextSelection(target)
 
-  if (rect == null || isCollapsed) return null
+  if (clientRect == null || isCollapsed) return null
 
   const style = css`
     position: absolute;
-    left: ${rect.left + rect.width / 2}px;
-    top: ${rect.top - 40}px;
+    left: ${clientRect.left + clientRect.width / 2}px;
+    top: ${clientRect.top - 40}px;
     margin-left: -50px;
     width: 100px;
     background: blue;
