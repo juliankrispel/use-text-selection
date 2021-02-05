@@ -45,3 +45,6 @@ const MyTextSelectionComponent = () => {
   </div>
 }
 ```
+## Work with me?
+
+I build editors for companies, or help their teams do so. Hit me up on [my website](http://jkrsp.com) to get in touch about a project.
