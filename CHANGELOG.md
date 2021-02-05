@@ -1,3 +1,5 @@
+## 1.1.3
+- fix useEffect and useCallback so they update when target changes
 ## 1.1.2
 
 - added textContent

@@ -85,7 +85,7 @@ export function useTextSelection(target?: HTMLElement) {
       return oldRect
     })
     setIsCollapsed(range.collapsed)
-  }, [])
+  }, [target])
 
   useLayoutEffect(() => {
     document.addEventListener('selectionchange', handler)
@@ -99,7 +99,7 @@ export function useTextSelection(target?: HTMLElement) {
       document.removeEventListener('keyup', handler)
       window.removeEventListener('resize', handler)
     }
-  }, [])
+  }, [target])
 
   return {
     clientRect,

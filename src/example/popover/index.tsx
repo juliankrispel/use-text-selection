@@ -44,6 +44,6 @@ export const Example = () => {
   return <div>
     <h1><pre>use-text-selection</pre></h1>
     <div ref={ref}>Selecting text anywhere here will trigger the popover</div>
-    {target != null && <Popover target={target}/>}
+    <Popover target={target}/>
   </div>
 }
