@@ -11,11 +11,16 @@
     "build": "rm -rf dist && ./node_modules/.bin/tsc",
     "prepublish": "npm run build",
     "start": "parcel serve src/example/index.html",
-    "build:example": "rm -rf build-site && parcel build --public-url \"/use-text-selection/\" -d \"build-site\" src/example/index.html",
+    "build:example": "rm -rf build-site && parcel build --target gh-pages --dist-dir \"build-site\" src/example/index.html",
     "deploy": "npm run build:example && gh-pages -d build-site"
   },
   "peerDependencies": {
     "react": "^17.0.1"
+  },
+  "targets": {
+    "gh-pages": {
+      "publicUrl": "/use-text-selection/"
+    }
   },
   "devDependencies": {
     "@emotion/css": "^11.1.3",
@@ -23,10 +28,12 @@
     "@types/react-dom": "^17.0.0",
     "emotion": "^11.0.0",
     "gh-pages": "^3.1.0",
-    "parcel": "^2.0.0-beta.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "typescript": "^4.1.3",
     "typography": "^0.16.19"
+  },
+  "dependencies": {
+    "parcel": "^2.0.0-beta.2"
   }
 }
