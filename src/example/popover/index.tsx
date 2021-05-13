@@ -19,15 +19,16 @@ export const Popover = ({ target }: { target?: HTMLElement }) => {
     margin-left: -50px;
     width: 100px;
     background: blue;
+    border: none;
     text-align: center;
     color: white;
     border-radius: 3px;
   `
 
   return <Portal>
-    <div className={style}>
+    <button className={style}>
       share me
-    </div>
+    </button>
   </Portal>
 }
 
