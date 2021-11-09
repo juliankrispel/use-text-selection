@@ -9,6 +9,7 @@ const Portal: FunctionComponent = ({ children }) => {
 
 export const Popover = ({ target }: { target?: HTMLElement }) => {
   const { isCollapsed, clientRect } = useTextSelection(target)
+  console.log(isCollapsed, clientRect)
 
   if (clientRect == null || isCollapsed) return null
 

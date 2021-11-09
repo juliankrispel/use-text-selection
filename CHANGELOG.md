@@ -1,3 +1,9 @@
+## 1.1.5
+- Refactor state management to avoid extraneous state updates
+
+## 1.1.4
+- Make readme clearer
+
 ## 1.1.3
 - fix useEffect and useCallback so they update when target changes
 ## 1.1.2

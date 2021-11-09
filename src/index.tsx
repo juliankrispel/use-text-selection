@@ -26,6 +26,14 @@ function shallowDiff(prev: any, next: any) {
   return false
 }
 
+type TextSelectionState = {
+  clientRect?: ClientRect,
+  isCollapsed?: boolean,
+  textContent?: string
+}
+
+const defaultState: TextSelectionState = {}
+
 /**
  * useTextSelection(ref)
  * 
@@ -34,40 +42,44 @@ function shallowDiff(prev: any, next: any) {
  * 
  */
 export function useTextSelection(target?: HTMLElement) {
-  const [clientRect, setRect] = useState<ClientRect>()
-  const [isCollapsed, setIsCollapsed] = useState<boolean>()
-  const [textContent, setText] = useState<string>()
+
+  const [{
+    clientRect,
+    isCollapsed,
+    textContent,
+  }, setState] = useState<TextSelectionState>(defaultState)
 
   const reset = useCallback(() => {
-    setRect(undefined)
-    setIsCollapsed(undefined)
-    setText(undefined)
+    setState(defaultState)
   }, [])
 
   const handler = useCallback(() => {
     let newRect: ClientRect
     const selection = window.getSelection()
+    let newState: TextSelectionState = { }
 
     if (selection == null || !selection.rangeCount) {
-      reset()
+      setState(newState)
       return
     } 
 
     const range = selection.getRangeAt(0)
 
     if (target != null && !target.contains(range.commonAncestorContainer)) {
-      reset()
+      setState(newState)
       return
     }
 
     if (range == null) {
-      reset()
+      setState(newState)
       return
     }
 
     const contents = range.cloneContents()
 
-    if (contents.textContent != null) setText(contents.textContent)
+    if (contents.textContent != null) {
+      newState.textContent = contents.textContent
+    }
 
     const rects = range.getClientRects()
 
@@ -78,13 +90,12 @@ export function useTextSelection(target?: HTMLElement) {
       if (rects.length < 1) return
       newRect = roundValues(rects[0].toJSON())
     }
-    setRect(oldRect => {
-      if (shallowDiff(oldRect, newRect)) {
-        return newRect
-      }
-      return oldRect
-    })
-    setIsCollapsed(range.collapsed)
+    if (shallowDiff(clientRect, newRect)) {
+      newState.clientRect = newRect
+    }
+    newState.isCollapsed = range.collapsed
+
+    setState(newState)
   }, [target])
 
   useLayoutEffect(() => {
