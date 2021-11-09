@@ -9,17 +9,28 @@ Useful when building any kind of UI that is displayed in relation to your text-s
 ## Basic usage
 
 ```tsx
+import { useRef } from 'react'
 import { useTextSelection } from 'use-text-selection'
 
-const MyTextSelectionComponent = () => {
+export const AutoComplete = () => {
   const { clientRect, isCollapsed } = useTextSelection()
   // to constrain text selection events to an element
   // just add the element as a an argument like `useTextSelection(myElement)`
 
-  return <MyComponent
-    style={{ left: clientRect.x, top: clientRect.y }}
-  />
-}
+  if (clientRect == null) return null
+
+  return (
+    <div
+      style={{
+        left: clientRect.x,
+        top: clientRect.y + clientRect.height,
+        position: 'absolute',
+      }}
+    >
+      Autocomplete
+    </div>
+  );
+}}
 ```
 
 ### Constraining text selection events to an element
@@ -35,16 +46,28 @@ const MyTextSelectionComponent = () => {
   const [ref, setRef] = useRef()
   const { clientRect, isCollapsed } = useTextSelection(ref.current)
 
-  return <div>
-    <div ref={(el) => setRef(el)}>
-      <MyOtherComponent>
-    </div>
-    <MyComponent
-      style={{ left: clientRect.x, top: clientRect.y }}
-    />
-  </div>
+  if (clientRect == null) return null
+
+  return (
+    <>
+      <div ref={(el) => setRef(el)}>
+        <MyOtherComponent>
+      </div>
+
+      <div
+        style={{
+          left: clientRect.x,
+          top: clientRect.y + clientRect.height,
+          position: 'absolute',
+        }}
+      >
+        Autocomplete
+      </div>
+    </>
+  );
 }
 ```
+
 ## Work with me?
 
 I build editors for companies, or help their teams do so. Hit me up on [my website](http://jkrsp.com) to get in touch about a project.
