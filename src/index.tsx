@@ -29,7 +29,8 @@ function shallowDiff(prev: any, next: any) {
 type TextSelectionState = {
   clientRect?: ClientRect,
   isCollapsed?: boolean,
-  textContent?: string
+  textContent?: string,
+  commonAncestor?: Node
 }
 
 const defaultState: TextSelectionState = {}
@@ -47,6 +48,7 @@ export function useTextSelection(target?: HTMLElement) {
     clientRect,
     isCollapsed,
     textContent,
+    commonAncestor,
   }, setState] = useState<TextSelectionState>(defaultState)
 
   const reset = useCallback(() => {
@@ -94,6 +96,7 @@ export function useTextSelection(target?: HTMLElement) {
       newState.clientRect = newRect
     }
     newState.isCollapsed = range.collapsed
+    newState.commonAncestor = range.commonAncestorContainer
 
     setState(newState)
   }, [target])
@@ -115,6 +118,7 @@ export function useTextSelection(target?: HTMLElement) {
   return {
     clientRect,
     isCollapsed,
-    textContent
+    textContent,
+    commonAncestor,
   }
 }

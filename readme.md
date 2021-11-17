@@ -68,6 +68,14 @@ const MyTextSelectionComponent = () => {
 }
 ```
 
+### Accessing the Common Ancestor
+
+You can access the closest, common ancestor to all elements within the selection with the `closestAncestor` return value. This is forwarded directly from the [commonAncestorContainer](https://developer.mozilla.org/en-US/docs/Web/API/Range/commonAncestorContainer) from the text range.
+
+```tsx
+const { clientRect, isCollapsed, commonAncestor } = useTextSelection(ref.current);
+```
+
 ## Work with me?
 
 I build editors for companies, or help their teams do so. Hit me up on [my website](http://jkrsp.com) to get in touch about a project.
