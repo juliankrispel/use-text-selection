@@ -3,7 +3,10 @@ import { useTextSelection } from '../..'
 import { css } from '@emotion/css'
 import { createPortal } from 'react-dom'
 
-const Portal: FunctionComponent = ({ children }) => {
+type Props = {
+  children?: React.ReactNode
+};
+const Portal = ({ children }: Props) => {
   return createPortal(children, document.body)
 }
 
@@ -26,16 +29,18 @@ export const Popover = ({ target }: { target?: HTMLElement }) => {
     border-radius: 3px;
   `
 
-  return <Portal>
-    <button className={style}>
-      share me
-    </button>
-  </Portal>
+  return (
+    <Portal>
+      <button className={style}>
+        share me
+      </button>
+    </Portal>
+  )
 }
 
 export const Example = () => {
   const [target, setTarget] = useState<HTMLElement>()
-  const ref = useCallback((el) => {
+  const ref = useCallback((el: HTMLDivElement) => {
     if (el != null) {
       setTarget(el)
     } else {
@@ -46,6 +51,6 @@ export const Example = () => {
   return <div>
     <h1><pre>use-text-selection</pre></h1>
     <div ref={ref}>Selecting text anywhere here will trigger the popover</div>
-    <Popover target={target}/>
+    <Popover target={target} />
   </div>
 }
