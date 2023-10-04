@@ -1,3 +1,6 @@
+## 1.1.6
+- Move `parcel` to devDependecies to reduce installed size
+
 ## 1.1.5
 - Refactor state management to avoid extraneous state updates
 
